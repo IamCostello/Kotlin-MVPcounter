@@ -2,27 +2,27 @@ package com.costello.mvpcounter.ui.view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProviders
 import com.costello.mvpcounter.R
-import com.costello.mvpcounter.contract.ContractInterface.*
-import com.costello.mvpcounter.ui.MainActivityPresenter
+import com.costello.mvpcounter.data.MainActivityViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : AppCompatActivity(), View {
-    private var presenter: MainActivityPresenter? = null
+class MainActivity : AppCompatActivity() {
+    lateinit var mainActivityViewModel: MainActivityViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        presenter = MainActivityPresenter(this)
+        mainActivityViewModel = ViewModelProviders.of(this).get(MainActivityViewModel::class.java)
+        mainActivityViewModel.mutableLiveData.observe(this, Observer { updateViewData() })
+
+        counterButton.setOnClickListener { mainActivityViewModel.incrementValue() }
     }
 
-    override fun initView() {
-        counterTextView.text = presenter?.getCounter()
-        counterButton.setOnClickListener { presenter?.incrementValue() }
-    }
-
-    override fun updateViewData() {
-        counterTextView.text = presenter?.getCounter()
+    fun updateViewData() {
+        counterTextView.text = mainActivityViewModel.mainActivityModel.getCounter().toString()
     }
 }

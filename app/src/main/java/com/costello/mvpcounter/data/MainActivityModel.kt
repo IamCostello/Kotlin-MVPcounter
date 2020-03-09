@@ -1,13 +1,14 @@
 package com.costello.mvpcounter.data
 
-import com.costello.mvpcounter.contract.ContractInterface
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 
-class MainActivityModel: ContractInterface.Model {
-    private var counter = 0
+class MainActivityModel {
+    private var counter: Int = 0
 
-    override fun getCounter() = counter
+    fun getCounter() = counter
 
-    override fun incrementCounter() {
+    fun incrementCounter() {
         counter++
     }
 }
