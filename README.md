@@ -1,3 +1,2 @@
-Simple counter app using MVP and MVVM pattern and MVVM pattern
-
-Checkout at MVVM branch
+Simple counter app using MVP and MVVM pattern
+Checkout at second branch for MVVM
